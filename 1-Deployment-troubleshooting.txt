@@ -1,0 +1,146 @@
+################ ################ Troubleshoot ################ ################
+rubytong@Air-cua-Ruby nd087-c3-deployment-roulette % kubectl describe pod hello-world-d696c5567-cz947
+Name:             hello-world-d696c5567-cz947
+Namespace:        udacity
+Priority:         0
+Service Account:  default
+Node:             ip-10-100-3-50.us-east-2.compute.internal/10.100.3.50
+Start Time:       Sat, 24 Sep 2022 15:15:30 +0700
+Labels:           app=hello-world
+                  pod-template-hash=d696c5567
+Annotations:      kubernetes.io/psp: eks.privileged
+Status:           Running
+IP:               10.100.3.48
+IPs:
+  IP:           10.100.3.48
+Controlled By:  ReplicaSet/hello-world-d696c5567
+Containers:
+  hello-world:
+    Container ID:   docker://ee813ae217fc7dd739c0d0935a74f7c307d0481fb4cd8ab771b405c46316c112
+    Image:          etapau/hello-world:udacity
+    Image ID:       docker-pullable://etapau/hello-world@sha256:b158d96c3f9ff8311acbff1c16b38ee39acf4c68a8ca0b3ea25d7064d24ef0bd
+    Port:           9000/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Sat, 24 Sep 2022 15:18:22 +0700
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    137
+      Started:      Sat, 24 Sep 2022 15:17:46 +0700
+      Finished:     Sat, 24 Sep 2022 15:18:22 +0700
+    Ready:          True
+    Restart Count:  4
+    Liveness:       http-get http://:9000/nginx_status delay=2s timeout=1s period=2s #success=1 #failure=3
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-crm9s (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-crm9s:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              kubernetes.io/os=linux
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                  From               Message
+  ----     ------     ----                 ----               -------
+  Normal   Scheduled  3m5s                 default-scheduler  Successfully assigned udacity/hello-world-d696c5567-cz947 to ip-10-100-3-50.us-east-2.compute.internal
+  Normal   Pulled     2m41s                kubelet            Successfully pulled image "etapau/hello-world:udacity" in 22.920155314s
+  Normal   Pulled     2m5s                 kubelet            Successfully pulled image "etapau/hello-world:udacity" in 337.23484ms
+  Normal   Created    87s (x3 over 2m41s)  kubelet            Created container hello-world
+  Normal   Pulled     87s                  kubelet            Successfully pulled image "etapau/hello-world:udacity" in 267.047021ms
+  Normal   Started    86s (x3 over 2m41s)  kubelet            Started container hello-world
+  Warning  Unhealthy  79s (x9 over 2m39s)  kubelet            Liveness probe failed: HTTP probe failed with statuscode: 500
+  Normal   Killing    79s (x3 over 2m35s)  kubelet            Container hello-world failed liveness probe, will be restarted
+  Normal   Pulling    49s (x4 over 3m4s)   kubelet            Pulling image "etapau/hello-world:udacity"
+  Warning  Unhealthy  7m53s (x21 over 12m)    kubelet            Liveness probe failed: HTTP probe failed with statuscode: 500
+  Warning  BackOff    2m53s (x26 over 9m27s)  kubelet            Back-off restarting failed container
+
+################ ################ Cause ################ ################
+Wrong livenessProbe config
+
+################ ################ How to fix ################ ################
+Update health check path from /nginx-status to /healthz
+
+############### ################ Evidence of Done ################ ################ 
+rubytong@Air-cua-Ruby nd087-c3-deployment-roulette % kubectl describe pod hello-world-794458d64d-4gz4v
+Name:             hello-world-794458d64d-4gz4v
+Namespace:        udacity
+Priority:         0
+Service Account:  default
+Node:             ip-10-100-3-50.us-east-2.compute.internal/10.100.3.50
+Start Time:       Sat, 24 Sep 2022 15:38:16 +0700
+Labels:           app=hello-world
+                  pod-template-hash=794458d64d
+Annotations:      kubernetes.io/psp: eks.privileged
+Status:           Running
+IP:               10.100.3.26
+IPs:
+  IP:           10.100.3.26
+Controlled By:  ReplicaSet/hello-world-794458d64d
+Containers:
+  hello-world:
+    Container ID:   docker://dee7132b31c6110c156ab13eca7924eee5d9fa5969f316517fa26fcf82c606e9
+    Image:          etapau/hello-world:udacity
+    Image ID:       docker-pullable://etapau/hello-world@sha256:b158d96c3f9ff8311acbff1c16b38ee39acf4c68a8ca0b3ea25d7064d24ef0bd
+    Port:           9000/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Sat, 24 Sep 2022 15:38:18 +0700
+    Ready:          True
+    Restart Count:  0
+    Liveness:       http-get http://:9000/healthz delay=2s timeout=1s period=2s #success=1 #failure=3
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-nx7qm (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-nx7qm:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              kubernetes.io/os=linux
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  30s   default-scheduler  Successfully assigned udacity/hello-world-794458d64d-4gz4v to ip-10-100-3-50.us-east-2.compute.internal
+  Normal  Pulling    29s   kubelet            Pulling image "etapau/hello-world:udacity"
+  Normal  Pulled     29s   kubelet            Successfully pulled image "etapau/hello-world:udacity" in 253.107841ms
+  Normal  Created    29s   kubelet            Created container hello-world
+  Normal  Started    28s   kubelet            Started container hello-world
+rubytong@Air-cua-Ruby nd087-c3-deployment-roulette % kubectl logs hello-world-794458d64d-4gz4v
+Ready to receive requests on 9000
+ * Serving Flask app 'main' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://10.100.3.26:9000/ (Press CTRL+C to quit)
+Healthy!
+10.100.3.50 - - [24/Sep/2022 08:38:20] "GET /healthz HTTP/1.1" 200 -
+10.100.3.50 - - [24/Sep/2022 08:38:22] "GET /healthz HTTP/1.1" 200 -
+Healthy!
+10.100.3.50 - - [24/Sep/2022 08:38:24] "GET /healthz HTTP/1.1" 200 -
+Healthy!

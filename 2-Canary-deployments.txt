@@ -1,0 +1,76 @@
+################ ################ Curl checks ################ ################ 
+
+rubytong@Air-cua-Ruby nd087-c3-deployment-roulette % kubectl run debug --rm -i --tty --image nicolaka/netshoot -- /bin/bash
+If you don't see a command prompt, try pressing enter.
+bash-5.1# curl 172.20.78.187
+<html>
+<h1>This is version 2</h1>
+</html>
+bash-5.1# curl 172.20.78.187
+<html>
+<h1>This is version 2</h1>
+</html>
+bash-5.1# curl 172.20.78.187
+<html>
+<h1>This is version 1</h1>
+</html>
+bash-5.1# curl 172.20.78.187
+<html>
+<h1>This is version 1</h1>
+</html>
+bash-5.1# curl 172.20.78.187
+<html>
+<h1>This is version 2</h1>
+</html>
+bash-5.1# curl 172.20.78.187
+<html>
+<h1>This is version 2</h1>
+</html>
+bash-5.1# curl 172.20.78.187
+<html>
+<h1>This is version 2</h1>
+</html>
+bash-5.1# curl 172.20.78.187
+<html>
+<h1>This is version 1</h1>
+</html>
+bash-5.1# curl 172.20.78.187
+<html>
+<h1>This is version 2</h1>
+</html>
+bash-5.1# curl 172.20.78.187
+<html>
+<h1>This is version 1</h1>
+</html>
+bash-5.1# curl 172.20.78.187
+<html>
+<h1>This is version 1</h1>
+</html>
+bash-5.1# curl 172.20.78.187
+<html>
+<h1>This is version 1</h1>
+</html>
+bash-5.1# curl 172.20.78.187
+<html>
+<h1>This is version 1</h1>
+</html>
+bash-5.1# curl 172.20.78.187
+<html>
+<h1>This is version 2</h1>
+</html>
+bash-5.1# 
+
+
+################ ################ Get pods Running ################ ################ 
+
+rubytong@Air-cua-Ruby nd087-c3-deployment-roulette % kubectl get pods
+NAME                           READY   STATUS        RESTARTS   AGE
+blue-8475cbdf46-5n4bt          1/1     Running       0          60m
+blue-8475cbdf46-jkv7k          1/1     Running       0          60m
+blue-8475cbdf46-xt4v6          1/1     Running       0          60m
+canary-v1-64598c676f-nnxcf     1/1     Running       0          2m39s
+canary-v1-64598c676f-vztnh     1/1     Running       0          2m39s
+canary-v2-5dc9c56687-47z7l     1/1     Running       0          25m
+canary-v2-5dc9c56687-57khn     1/1     Running       0          5m35s
+debug                          0/1     Terminating   0          2m3s
+hello-world-794458d64d-4gz4v   1/1     Running       0          37m

@@ -122,3 +122,6 @@ terraform destroy
 ## License
 
 [License](../LICENSE.md)
+
+#To debug 
+kubectl run debug --rm -i --tty --image nicolaka/netshoot -- /bin/bash
