@@ -1,0 +1,28 @@
+Solution: Config cluster auto scaler to auto scale node based on demand
+1. Inrease max node size of EKS cluster from 2 to 3
+2. Create a node autoscaling configuration
+
+##Setup OIDC provider
+
+eksctl utils associate-iam-oidc-provider \
+--cluster udacity-cluster \
+--approve \
+--region=us-east-2
+
+##Create a cluster serviceaccount with IAM permissions. Update the follow commands with the AWS account number
+
+```
+   eksctl create iamserviceaccount \
+   --name cluster-autoscaler \
+   --namespace kube-system \
+   --cluster udacity-cluster \
+   --attach-policy-arn "arn:aws:iam::${ACCOUNT_ID}:policy/udacity-k8s-autoscale" \
+   --approve \
+   --override-existing-serviceaccounts \
+   --region=us-east-2
+```
+
+## Check service account created
+kubectl get serviceaccount -n kube-system|grep cluster-autoscaler
+
+3. Create cluster_autoscale.yaml and apply the file to create nessessary resources
