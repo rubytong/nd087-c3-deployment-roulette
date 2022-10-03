@@ -1,29 +1,34 @@
-rubytong@Air-cua-Ruby infra % kubectl top pods -A --sort-by=memory
-NAMESPACE     NAME                                  CPU(cores)   MEMORY(bytes)   
-kube-system   cluster-autoscaler-d8cc67649-p55cq    2m           47Mi            
-kube-system   aws-node-nqphl                        3m           41Mi            
-kube-system   aws-node-pksxj                        3m           41Mi            
-kube-system   aws-node-fzfl4                        3m           41Mi            
-kube-system   metrics-server-79ff596794-8qj4z       4m           16Mi            
-kube-system   kube-proxy-t47nf                      1m           12Mi            
-kube-system   kube-proxy-szmvr                      1m           12Mi            
-kube-system   kube-proxy-kw2lr                      1m           11Mi            
-kube-system   coredns-f47955f89-kctr7               1m           9Mi             
-kube-system   coredns-f47955f89-c9rx5               2m           8Mi             
-udacity       bloaty-mcbloatface-58c98b98d8-hps24   1m           3Mi             
-udacity       bloaty-mcbloatface-58c98b98d8-pgbnj   1m           3Mi             
-udacity       bloaty-mcbloatface-58c98b98d8-k92mm   1m           3Mi             
-udacity       bloaty-mcbloatface-58c98b98d8-fwnlg   1m           3Mi             
-udacity       bloaty-mcbloatface-58c98b98d8-jq9x7   1m           3Mi             
-udacity       bloaty-mcbloatface-58c98b98d8-4db46   1m           3Mi             
-udacity       bloaty-mcbloatface-58c98b98d8-d4hbh   1m           3Mi             
-udacity       bloaty-mcbloatface-58c98b98d8-lmb9d   1m           3Mi             
-udacity       bloaty-mcbloatface-58c98b98d8-mqjtt   1m           3Mi             
-udacity       bloaty-mcbloatface-58c98b98d8-r5gl2   1m           3Mi             
-udacity       bloaty-mcbloatface-58c98b98d8-6md8c   1m           3Mi             
-udacity       bloaty-mcbloatface-58c98b98d8-phhsj   1m           3Mi             
-udacity       bloaty-mcbloatface-58c98b98d8-ggs8h   1m           3Mi             
-udacity       bloaty-mcbloatface-58c98b98d8-9br9z   1m           3Mi             
-udacity       bloaty-mcbloatface-58c98b98d8-858bj   1m           3Mi             
-udacity       bloaty-mcbloatface-58c98b98d8-fs7tg   1m           3Mi             
-udacity       bloaty-mcbloatface-58c98b98d8-rcfjs   1m           3Mi    
+
+The name of the application using the most memory in udacity namespace is hello-world
+
+####### LOG #########
+rubytong@Air-cua-Ruby infra % kubectl top pods -n udacity --sort-by memory
+NAME                                  CPU(cores)   MEMORY(bytes)   
+hello-world-794458d64d-trzj2          1m           20Mi            
+bloaty-mcbloatface-58c98b98d8-xrjdm   1m           3Mi             
+bloaty-mcbloatface-58c98b98d8-qw2jm   1m           3Mi             
+bloaty-mcbloatface-58c98b98d8-4ks66   1m           3Mi             
+bloaty-mcbloatface-58c98b98d8-tkgrn   1m           3Mi             
+green-5cdd96c9b4-rz6wc                1m           3Mi             
+bloaty-mcbloatface-58c98b98d8-rjfdm   1m           3Mi             
+bloaty-mcbloatface-58c98b98d8-r9l92   1m           3Mi             
+bloaty-mcbloatface-58c98b98d8-585c7   1m           3Mi             
+bloaty-mcbloatface-58c98b98d8-rl6vc   1m           3Mi             
+blue-8475cbdf46-hh5bb                 1m           3Mi             
+bloaty-mcbloatface-58c98b98d8-fzd8x   1m           3Mi             
+bloaty-mcbloatface-58c98b98d8-tdh5b   1m           3Mi             
+bloaty-mcbloatface-58c98b98d8-tknqx   1m           3Mi             
+bloaty-mcbloatface-58c98b98d8-mktdx   1m           3Mi             
+bloaty-mcbloatface-58c98b98d8-2hxpq   1m           3Mi             
+green-5cdd96c9b4-gqp2z                1m           3Mi             
+blue-8475cbdf46-2wmcd                 1m           3Mi             
+bloaty-mcbloatface-58c98b98d8-b9zzk   1m           3Mi             
+green-5cdd96c9b4-44vdw                1m           3Mi             
+bloaty-mcbloatface-58c98b98d8-bnfc2   1m           3Mi             
+bloaty-mcbloatface-58c98b98d8-ks8tx   1m           3Mi             
+blue-8475cbdf46-dvsgr                 1m           3Mi             
+canary-v1-64598c676f-7z4tb            0m           3Mi             
+canary-v2-5dc9c56687-jm9ww            0m           3Mi             
+bloaty-mcbloatface-58c98b98d8-77nck   1m           3Mi             
+canary-v1-64598c676f-6h44j            0m           3Mi             
+canary-v1-64598c676f-cts2l            0m           3Mi   
